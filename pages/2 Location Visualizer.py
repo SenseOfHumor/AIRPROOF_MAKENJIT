@@ -40,7 +40,7 @@ def visualize_map(location):
   else:
     st.warning("Unable to visualize map. Please check the location entered.")
 
-st.title("Location Visualizer")
+st.title("Location Visualizer 📍")
 
 location_input = st.text_input("Enter a location:", default_location)
 

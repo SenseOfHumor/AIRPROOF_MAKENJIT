@@ -149,7 +149,7 @@ genai.configure(api_key = os.getenv("GOOGLE_API_KEY"))
 model = genai.GenerativeModel('gemini-pro')
 
 
-st.title("ASK ME ABOUT AIR QUALITY! ☁️")
+st.title("ASK ME ABOUT AIR QUALITY! 💨")
 
 ## initializing the message history
 if "messages" not in st.session_state:
