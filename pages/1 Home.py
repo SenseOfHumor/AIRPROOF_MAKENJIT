@@ -82,20 +82,29 @@ def weather(city_name):
     # res = "Temperature in " + city_name + " is : " + str(current_temperature) + "°C \nAtmospheric Pressure: " + str(current_pressure) + " \n Humidity: " + str(current_humidity) + " \n Description: " + str(weather_description)
     # return res
 
-# Function to read weather data from CSV
-def read_weather_data(filename):
-  try:
-    df = pd.read_csv(filename)
-    return df.to_string(index=False)
-  except FileNotFoundError:
-    return "Weather data file not found!"
+# # Function to read weather data from CSV
+# def read_weather_data(filename):
+#   try:
+#     df = pd.read_csv(filename)
+#     return df.to_string(index=False)
+#   except FileNotFoundError:
+#     return "Weather data file not found!"
 
-# Load weather data
-weather_data_file = "sensor_data.csv"  # Replace with your actual filename
-weatherInfo = read_weather_data(weather_data_file)
+# # Load weather data
+# weather_data_file = "sensor_data.csv"  # Replace with your actual filename
+# weatherInfo = read_weather_data(weather_data_file)
+
+## get the weather data from the arduino in different file
+#weatherInfo = st.session_state["weatherInfo"]
+
+# Display the weather data
+st.session_state["weatherInfo"] = weatherInfo
+weatherInfo = st.session_state["weatherInfo"]
+st.write(f"Current Weather Data: {weatherInfo}")
 
 
 st.sidebar.title("LOOK UP THE WEATHER ☁️")
+
 
 
 if 'data' not in st.session_state:
@@ -140,6 +149,10 @@ if "messages" not in st.session_state:
 if 'chat_history' not in st.session_state:
     st.session_state['chat_history'] = []
 
+
+##sidebar initial response
+sidebar_response = model.generate_content("explain the air quality data and if it is harmful or not. airquality:{weatherInfo}")
+st.sidebar.write(sidebar_response.text)
 
 ## display chat messages from history on app rerun
 for message in st.session_state.messages:

@@ -34,12 +34,12 @@ def create_blockchain(data):
   return chain
 
 # Test Cases
-blockchain1 = create_blockchain("Swap")
-print(f"Latest Block - {blockchain1[-1]['data']}")
-#printing the hash of the latest block
-print(f"Latest Block - {blockchain1[-1]['hash']}")
+# blockchain1 = create_blockchain("Swap")
+# print(f"Latest Block - {blockchain1[-1]['data']}")
+# #printing the hash of the latest block
+# print(f"Latest Block - {blockchain1[-1]['hash']}")
 
-blockchain2 = create_blockchain("Swapnil")
-print(f"Latest Block - {blockchain2[-1]['data']}")
-#printing the hash of the latest block
-print(f"Latest Block - {blockchain2[-1]['hash']}")
+# blockchain2 = create_blockchain("Swapnil")
+# print(f"Latest Block - {blockchain2[-1]['data']}")
+# #printing the hash of the latest block
+# print(f"Latest Block - {blockchain2[-1]['hash']}")
