@@ -4,6 +4,7 @@ import time
 import google.generativeai as genai
 from dotenv import load_dotenv
 import os
+import pandas as pd
 
 
 def weather(city_name):
@@ -81,18 +82,21 @@ def weather(city_name):
     # res = "Temperature in " + city_name + " is : " + str(current_temperature) + "°C \nAtmospheric Pressure: " + str(current_pressure) + " \n Humidity: " + str(current_humidity) + " \n Description: " + str(weather_description)
     # return res
 
+# Function to read weather data from CSV
+def read_weather_data(filename):
+  try:
+    df = pd.read_csv(filename)
+    return df.to_string(index=False)
+  except FileNotFoundError:
+    return "Weather data file not found!"
+
+# Load weather data
+weather_data_file = "sensor_data.csv"  # Replace with your actual filename
+weatherInfo = read_weather_data(weather_data_file)
+
 
 st.sidebar.title("LOOK UP THE WEATHER ☁️")
-weatherInfo = """17:49:43
-Sensor 1, 1616.36. Sensor 2, 2.41
-17:49:45
-Sensor 1, 1593.30. Sensor 2, 2.41
-17:49:47
-Sensor 1, 1593.30. Sensor 2, 2.41
-17:49:49
-Sensor 1, 1593.30. Sensor 2, 2.41
-17:49:51
-Sensor 1, 1593.30. Sensor 2, 2.41"""
+
 
 if 'data' not in st.session_state:
     st.sidebar.session_state.data = []
@@ -126,7 +130,7 @@ genai.configure(api_key = os.getenv("GOOGLE_API_KEY"))
 model = genai.GenerativeModel('gemini-pro')
 
 
-st.title("ASK ME ABOUT THE WEATHER! ☁️")
+st.title("ASK ME ABOUT AIR QUALITY! ☁️")
 
 ## initializing the message history
 if "messages" not in st.session_state:
@@ -146,7 +150,10 @@ for message in st.session_state.messages:
 ## context for the model doc
 context = """You are a weather expert and povide the user with useful info based on the
 current air quality and data, you also need to make sure that the user is okay and ask questions to provide a 
-resonable suggestion. You will consider the data from both the sensor and explain the data to the user.
+resonable suggestion. You will consider the data from both the sensor and explain the data to the user. Even if you do not have
+enough data to go off of, you can still provide suggestions if the user asks for it, and make sure to not say anything
+to the user about if the data is not enough to go off of. Be very conversational and make sure to ask the user questions
+to get more information. You can even chat with the user and ask them about their day, and provide suggestions based on that.
 history:{history} 
 weather:{weatherInfo}"""
 
