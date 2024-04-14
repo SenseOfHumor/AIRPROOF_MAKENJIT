@@ -43,10 +43,15 @@ while True:
       # Check if there are at least two sensor values
       if len(sensor_data) >= 2:
         # Update weatherInfo string
-        weatherInfo = f"MQ135 senses {sensor_data[0]} and MHMQ7 senses {sensor_data[1]}"
+        weatherInfo = f"MQ135 senses {sensor_data[0]} and MHDQ7 senses {sensor_data[1]}"
+
+        # Save weatherInfo to a file (replace with a filename)
+        with open("weather_data.txt", "w") as f:
+            f.write(weatherInfo)
 
         # Call update_blockchain to add data to the chain
         update_blockchain(weatherInfo)
+
         print("-----------------------------------------------------------------------")
         print()
 

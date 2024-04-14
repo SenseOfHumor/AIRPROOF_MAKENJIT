@@ -97,10 +97,20 @@ def weather(city_name):
 ## get the weather data from the arduino in different file
 #weatherInfo = st.session_state["weatherInfo"]
 
-# Display the weather data
-st.session_state["weatherInfo"] = weatherInfo
-weatherInfo = st.session_state["weatherInfo"]
-st.write(f"Current Weather Data: {weatherInfo}")
+# Function to read weather data from a file
+def read_weather_data(filename):
+  try:
+    with open(filename, "r") as f:
+      return f.read().strip()
+  except FileNotFoundError:
+    return "Weather data unavailable"
+  
+  
+# Load weather data (replace with your actual filename)
+weather_data_file = "weather_data.txt"
+weatherInfo = read_weather_data(weather_data_file)
+
+st.sidebar.write("Weather Data: ", weatherInfo)
 
 
 st.sidebar.title("LOOK UP THE WEATHER ☁️")
@@ -150,10 +160,6 @@ if 'chat_history' not in st.session_state:
     st.session_state['chat_history'] = []
 
 
-##sidebar initial response
-sidebar_response = model.generate_content("explain the air quality data and if it is harmful or not. airquality:{weatherInfo}")
-st.sidebar.write(sidebar_response.text)
-
 ## display chat messages from history on app rerun
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
@@ -166,9 +172,12 @@ current air quality and data, you also need to make sure that the user is okay a
 resonable suggestion. You will consider the data from both the sensor and explain the data to the user. Even if you do not have
 enough data to go off of, you can still provide suggestions if the user asks for it, and make sure to not say anything
 to the user about if the data is not enough to go off of. Be very conversational and make sure to ask the user questions
-to get more information. You can even chat with the user and ask them about their day, and provide suggestions based on that.
+to get more information. You will also output the details with your responses in response to the user asking
+questions about the quality, if the data is extremely high or moderately high in comparison, you will judge to 
+tell the user how harmful it is. You can even chat with the user and ask them about their day, and provide suggestions based on that.
 history:{history} 
 weather:{weatherInfo}"""
+
 
 
 ## get user input
