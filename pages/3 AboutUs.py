@@ -1,21 +1,27 @@
 import streamlit as st
 
-st.header("Hey  What's up?")
+st.header("Hey  What's up? 🌟")
 
 st.write("---")  # Creates a horizontal separator
 
 st.subheader("This is AIRPROOF : Prove the air you breathe in")
+st.markdown("""This is a web application that helps you be aware of the air quality of your city.
+                This project is made as a part of MakeNJIT 2024. The project utilizes a variety of sensors along
+            with a large language model to analyze and visualize air quality data. Every record is an immutable
+            record on the blockchain essentially making it public and Opensource which is crucial for
+            a sustainable way of living. The project also provides a location visualizer to help you visualize the""")
+
 
 st.write("---")
 
-st.subheader("About Us")
+st.subheader("Made By 🚀")
 
-st.write("✨ Creating bugs since ...")
-st.write(" I'm currently learning ...")
-st.write(" Goals: ...")
-st.write(" Fun fact: ...")
+st.write("Dave ")
+st.write("Swapnil")
+st.write("Steven")
+st.write("Yasmeen")
 
-st.write("---")
+st.write("_" * 50)  # Creates a horizontal line
 
 st.subheader("Made with")
 
